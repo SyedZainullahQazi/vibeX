@@ -1,19 +1,16 @@
 // for use side rendering
 "use client";
-
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserValidation } from "@/lib/validations/user";
 import { Button } from "@/components/ui/button";
 import * as z from 'zod'
+
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
@@ -21,6 +18,7 @@ import { ChangeEvent, useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from '@/lib/uploadThing'
+import { useForm } from "react-hook-form";
 
 // defining Props as interface (whichh is giving its structure)
 interface Props {
@@ -98,9 +96,9 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
             const imgRes = await startUpload(files)
 
             // this is to be check later
-            if (imgRes && imgRes[0].fileUrl) {
+            if (imgRes && imgRes[0].url) {
                 // update the values 
-                values.profile_photo = imgRes[0].fileUrl
+                values.profile_photo = imgRes[0].url
             }
         }
 

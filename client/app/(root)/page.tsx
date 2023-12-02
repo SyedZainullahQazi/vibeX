@@ -1,5 +1,9 @@
-export default function Home () {
+import { UserButton } from "@clerk/nextjs";
+ 
+export default function Home() {
   return (
-    <div>My Threads Application</div>
+    <div>
+      <UserButton afterSignOutUrl="/"/>
+    </div>
   )
 }
