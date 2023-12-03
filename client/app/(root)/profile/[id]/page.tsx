@@ -1,22 +1,31 @@
-import {fetchUser} from '@/lib/actions/user.actions';
+
+// import {fetchUser} from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs';
 import Image from "next/image";
 import { redirect } from 'next/navigation';
-import ProfileHeader from '@/app/components/shared/ProfileHeader'
-import { Tabs,TabsContent, TabsList, TabsTrigger} from '@/app/components/ui/tabs';
-import ThreadsTab from '@/app/components/shared/ThreadsTab';
+import ProfileHeader from '@/components/shared/ProfileHeader'
+
+import ThreadsTab from '@/components/shared/ThreadsTab';
+import { profileTabs } from '@/constants';
+import { Tabs ,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
+
 async function Page({params}: {params: {id:string}})
 {
     const user = await currentUser();
-    if(!user) return null;
-    const userInfo = await fetchUser(params.id);
-    if(!userInfo?.onboarded) redirect('/onboarding');
+    // if(!user) return null;
+    //This will fetchUser Info by providing the params.id which is userID
+    //fetchin data of the user and using it further
+    // const userInfo = await fetchUser(params.id);
+
+    const userInfo={id:"1234",authUserId:"1234",name:"Ali",username:"aliH",
+                   image:"/assets/pic.png",bio:"LEVEL 2",threads:[1,2,3]};
+    // if(!userInfo?.onboarded) redirect('/onboarding');
     return (
         <section>
            <ProfileHeader
            accountId = {userInfo.id}
 // authUserId tells us if the current loged in user sees it own profile or some other else
-           authUserId = {user.id}
+           authUserId = {user?.id}
            name = {userInfo.name}
            username = {userInfo.username}
            imgUrl = {userInfo.image}

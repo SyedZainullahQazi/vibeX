@@ -14,7 +14,13 @@ comments:string,}
 const ThreadCard = ({key,id,currentUserId,parentId,content,author,community,
                     createdAt,comments}:Props) => {
   return (
-    <div>ThreadCard</div>
+    <main>
+        <div className="p-10 bg-light-4 ">
+            <h1>
+              {content}
+            </h1>
+        </div>
+    </main>
   )
 }
 

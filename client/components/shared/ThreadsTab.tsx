@@ -1,4 +1,4 @@
-import { fetchUserPosts } from "@/lib/actions/useractions";
+
 import ThreadCard from "../cards/ThreadCard";
 
 interface Props {
