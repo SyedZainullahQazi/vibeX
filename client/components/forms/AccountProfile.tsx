@@ -11,6 +11,8 @@ import {
     FormField,
     FormItem,
     FormLabel,
+    // shows error of form
+    FormMessage 
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
@@ -20,7 +22,7 @@ import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from '@/lib/uploadThing'
 import { useForm } from "react-hook-form";
 import { updateUser } from "@/lib/actions/user.actions";
-import {usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 // defining Props as interface (whichh is giving its structure)
 interface Props {
@@ -118,12 +120,12 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                 path: pathname
             }
         )
-        
+
         if (pathname === "/profile/edit") {
             router.back();
-          } else {
+        } else {
             router.push("/");
-          }
+        }
     }
 
 
@@ -173,6 +175,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                                     onChange={(e) => handleImage(e, field.onChange)}
                                 />
                             </FormControl>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -195,6 +198,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                                     {...field}
                                 />
                             </FormControl>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -217,6 +221,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                                     {...field}
                                 />
                             </FormControl>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -240,6 +245,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                                     {...field}
                                 />
                             </FormControl>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
