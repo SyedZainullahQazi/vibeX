@@ -19,6 +19,8 @@ import { Textarea } from "../ui/textarea";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from '@/lib/uploadThing'
 import { useForm } from "react-hook-form";
+import { updateUser } from "@/lib/actions/user.actions";
+import {usePathname, useRouter } from 'next/navigation'
 
 // defining Props as interface (whichh is giving its structure)
 interface Props {
@@ -38,6 +40,8 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     // the type of useState is array of File
     const [files, setFiles] = useState<File[]>([])
     const { startUpload } = useUploadThing("media")
+    const router = useRouter()
+    const pathname = usePathname()
 
     // we have to declare the form data that we have to push into it
 
@@ -102,8 +106,24 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
             }
         }
 
-        // todo update user profile
-
+        // update user profile
+        await updateUser(
+            // passing params as object so that order does not require
+            {
+                userId: user.id,
+                username: values.username,
+                name: values.name,
+                bio: values.bio,
+                image: values.profile_photo,
+                path: pathname
+            }
+        )
+        
+        if (pathname === "/profile/edit") {
+            router.back();
+          } else {
+            router.push("/");
+          }
     }
 
 
@@ -113,7 +133,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
             <form
                 onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-start gap-10" >
 
-                {/* image upload section  */}
+                {/* image upload section */}
                 <FormField
                     control={form.control}
                     name="profile_photo"
