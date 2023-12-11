@@ -18,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useRouter } from 'next/navigation'
 import { ThreadValidation } from '@/lib/validations/threads';
 import { createThread } from '@/lib/actions/thread.actions';
-
+import { useOrganization } from '@clerk/nextjs';
 // import { updateUser } from "@/lib/actions/user.actions";
 
 // defining Props as interface (whichh is giving its structure)
@@ -36,8 +36,10 @@ interface Props {
 
 
 function PostThread({ userId }: { userId: string }) {
+
     const router = useRouter()
     const pathname = usePathname()
+    const { organization } = useOrganization();
 
     // we have to declare the form data that we have to push into it
 
@@ -53,10 +55,11 @@ function PostThread({ userId }: { userId: string }) {
     });
 
     const onSubmit = async (values: z.infer<typeof ThreadValidation>) => {
-        await createThread({
-            text: values.thread, author: userId, communityId: null, path: pathname
-        })
 
+            await createThread({
+                text: values.thread, author: userId, communityId:organization?organization.id:null, 
+                path: pathname
+            })
         router.push('/')
     }
 
