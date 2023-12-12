@@ -1,4 +1,3 @@
-//we sync data b/w clerks and our application through web hooks
 /* eslint-disable camelcase */
 // Resource: https://clerk.com/docs/users/sync-data-to-your-backend
 // Above article shows why we need webhooks i.e., to sync data to our backend
